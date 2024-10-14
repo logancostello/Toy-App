@@ -60,8 +60,9 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd["id"] = generateId();
   addUser(userToAdd);
-  res.send();
+  res.status(201).send();
 });
 
 app.get("/users/:id", (req, res) => {
@@ -116,3 +117,7 @@ const removeUserById = (id) => {
     (user) => user["id"] != id
   );
 };
+
+const generateId = () => {
+  return Math.random();
+}
