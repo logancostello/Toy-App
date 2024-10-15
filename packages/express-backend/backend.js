@@ -82,7 +82,7 @@ app.delete("/users/:id", (req, res) => {
     res.status(404).send("Resource not found.");
   } else {
     removeUserById(id);
-    res.send();
+    res.status(204).send();
   }
 });
 
@@ -118,6 +118,7 @@ const removeUserById = (id) => {
   );
 };
 
+// Naively generates random 6 digit number to be used for id
 const generateId = () => {
-  return Math.random();
+  return (Math.floor(100000 + Math.random() * 900000)).toString();
 }
