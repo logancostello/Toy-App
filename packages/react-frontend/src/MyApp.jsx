@@ -15,11 +15,14 @@ function MyApp() {
   function updateList(person) {
     postUser(person)
       .then((res) => {
-        if (res.status !== 201) {
-          throw("Could not add user");
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          console.log(res.status);
+          throw("Cannot add user");
         }
       })
-      .then(() => setCharacters([...characters, person]))
+      .then((json) => {if (json) setCharacters([...characters, json])})
       .catch((error) => {
         console.log(error);
       });
